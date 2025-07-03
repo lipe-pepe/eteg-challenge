@@ -36,19 +36,20 @@ export const Form = () => {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
-    console.log(data);
     try {
-      const result = await createClient(data);
-      console.log("Cliente cadastrado com sucesso:", result);
-
+      await createClient(data);
       setModalType("success");
-      setModalMessage("Cadastro realizado com sucesso!");
+      setModalMessage("Cliente cadastrado com sucesso!");
       reset();
-    } catch (err) {
-      console.error(err);
+    } catch (err: unknown) {
+      let message = "Erro inesperado";
+
+      if (err instanceof Error) {
+        message = err.message;
+      }
 
       setModalType("error");
-      setModalMessage("Ocorreu um erro ao cadastrar o cliente.");
+      setModalMessage(message);
     } finally {
       setModalOpen(true);
     }

@@ -16,9 +16,11 @@ export async function createClient(data: ClientData) {
     body: JSON.stringify(data),
   });
 
+  const body = await response.json();
+
   if (!response.ok) {
-    throw new Error("Error creating client");
+    throw new Error(body.error || "Erro ao criar cliente");
   }
 
-  return response.json();
+  return body;
 }
