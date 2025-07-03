@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import clientsRoutes from "./routes/clients";
+import clientsRoutes from "./routes/clientsRoutes";
 
 const port = 3001;
 

@@ -5,6 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { formatCpf } from "@/utils/formatCpf";
 import { createClient } from "@/services/clients/createClient";
+import { useState } from "react";
+import { Modal } from "./Modal";
+import { Button } from "./Button";
 
 const formSchema = z.object({
   name: z.string().includes(" ", { message: "Digite o nome completo" }), // O nome completo precisa ter espaço para separar nome e sobrenome
@@ -19,10 +22,15 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>;
 
 export const Form = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState<"success" | "error">("success");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: zodResolver(formSchema),
   });
@@ -31,13 +39,18 @@ export const Form = () => {
     console.log(data);
     try {
       const result = await createClient(data);
-      // TRATAR O SUCESSO CORRETAMENTE!!!
       console.log("Cliente cadastrado com sucesso:", result);
-      alert("Cadastro realizado com sucesso!");
+
+      setModalType("success");
+      setModalMessage("Cadastro realizado com sucesso!");
+      reset();
     } catch (err) {
       console.error(err);
-      // TRATAR A MENSAGEM DE ERRO CORRETAMENTE!
-      alert("Error");
+
+      setModalType("error");
+      setModalMessage("Ocorreu um erro ao cadastrar o cliente.");
+    } finally {
+      setModalOpen(true);
     }
   };
 
@@ -76,8 +89,15 @@ export const Form = () => {
         {errors.notes && (
           <span className="input-error">{errors.notes.message}</span>
         )}
-        <button type="submit">Enviar</button>
+        <Button type="submit">Enviar</Button>
       </form>
+      {modalOpen && (
+        <Modal
+          type={modalType}
+          message={modalMessage}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
