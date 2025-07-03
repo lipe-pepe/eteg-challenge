@@ -35,7 +35,7 @@ export const Form = () => {
       await createClient(data);
       setModalType("success");
       setModalMessage("Cliente cadastrado com sucesso!");
-      reset();
+      reset({ name: "", favColor: "", email: "", notes: "", cpf: "" });
     } catch (err: unknown) {
       let message = "Erro inesperado";
 
