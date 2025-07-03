@@ -6,12 +6,6 @@ import * as z from "zod";
 import { formatCpf } from "@/utils/formatCpf";
 import { createClient } from "@/services/clients/createClient";
 
-// Dúvidas
-
-// O CPF deve ser salvo sem pontos? Faz diferença
-// A cor deve ser selecionada entre as 7 cores do arco-íris ou pode ser um seletor de cores?
-// É tudo obrigatório?
-
 const formSchema = z.object({
   name: z.string().includes(" ", { message: "Digite o nome completo" }), // O nome completo precisa ter espaço para separar nome e sobrenome
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {
