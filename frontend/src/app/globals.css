@@ -37,9 +37,8 @@ p {
   margin-bottom: 1rem;
 }
 
-/* Inputs e textarea */
-input,
-textarea {
+/* Inputs */
+input {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -48,8 +47,7 @@ textarea {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input:focus,
-textarea:focus {
+input:focus {
   border-color: #0070f3;
   box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
   outline: none;

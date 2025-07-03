@@ -2,31 +2,13 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { formatCpf } from "@/utils/formatCpf";
 import { createClient } from "@/services/clients/createClient";
 import { useState } from "react";
 import { Modal } from "./Modal";
 import { Button } from "./Button";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(1, { message: "Nome é obrigatório" })
-    .includes(" ", { message: "Digite o nome completo" }),
-  cpf: z
-    .string()
-    .min(1, { message: "CPF é obrigatório" })
-    .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, { message: "CPF inválido" }),
-  email: z
-    .string()
-    .min(1, { message: "E-mail é obrigatório" })
-    .email({ message: "Formato do email inválido" }),
-  favColor: z.string().min(1, { message: "Cor preferida é obrigatória" }),
-  notes: z.string().optional(),
-});
-
-type FormInputs = z.infer<typeof formSchema>;
+import { ColorSelect } from "./ColorSelect";
+import { ClientFormData, clientSchema } from "@/schemas/clientSchema";
 
 export const Form = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,15 +16,21 @@ export const Form = () => {
   const [modalType, setModalType] = useState<"success" | "error">("success");
 
   const {
-    register,
+    control,
     handleSubmit,
-    formState: { errors },
+    register,
     reset,
+    formState: { errors },
   } = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(clientSchema),
+    defaultValues: {
+      favColor: "",
+    },
   });
 
-  const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
+  const onSubmit: SubmitHandler<ClientFormData> = async (
+    data: ClientFormData
+  ) => {
     try {
       await createClient(data);
       setModalType("success");
@@ -67,12 +55,12 @@ export const Form = () => {
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4">
-          <h3>Nome completo</h3>
+          <h3>Nome completo *</h3>
           <input {...register("name")} />
           {errors.name && (
             <span className="input-error">{errors.name.message}</span>
           )}
-          <h3>CPF</h3>
+          <h3>CPF *</h3>
           <input
             {...register("cpf", {
               onChange: (e) => {
@@ -83,13 +71,13 @@ export const Form = () => {
           {errors.cpf && (
             <span className="input-error">{errors.cpf.message}</span>
           )}
-          <h3>E-mail</h3>
+          <h3>E-mail *</h3>
           <input {...register("email")} />
           {errors.email && (
             <span className="input-error">{errors.email.message}</span>
           )}
-          <h3>Cor preferida</h3>
-          <input {...register("favColor")} />
+          <h3>Cor preferida *</h3>
+          <ColorSelect control={control} name="favColor" />
           {errors.favColor && (
             <span className="input-error">{errors.favColor.message}</span>
           )}
