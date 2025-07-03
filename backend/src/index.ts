@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // COLOCAR CORRETAMENTE COM VAR DE AMBIENTE
+    origin: process.env.FRONTEND_URL,
   })
 );
 

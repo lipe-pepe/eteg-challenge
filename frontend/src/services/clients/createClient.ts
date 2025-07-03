@@ -1,3 +1,4 @@
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export interface ClientData {
   name: string;
   cpf: string;
@@ -7,8 +8,7 @@ export interface ClientData {
 }
 
 export async function createClient(data: ClientData) {
-  // ADICIONAR VARIAVEL DE AMBIENTE
-  const response = await fetch("http://localhost:3001/clients", {
+  const response = await fetch(`${API_URL}/clients`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
