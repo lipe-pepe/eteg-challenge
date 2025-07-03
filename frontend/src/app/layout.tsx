@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "John Doe's Form",
+  title: "Cadastro",
 };
 
 export default function RootLayout({
