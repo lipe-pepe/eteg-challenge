@@ -10,13 +10,20 @@ import { Modal } from "./Modal";
 import { Button } from "./Button";
 
 const formSchema = z.object({
-  name: z.string().includes(" ", { message: "Digite o nome completo" }), // O nome completo precisa ter espaço para separar nome e sobrenome
-  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {
-    message: "CPF inválido",
-  }),
-  email: z.string().email({ message: "Formato do email inválido" }),
-  favColor: z.string(),
-  notes: z.string(),
+  name: z
+    .string()
+    .min(1, { message: "Nome é obrigatório" })
+    .includes(" ", { message: "Digite o nome completo" }),
+  cpf: z
+    .string()
+    .min(1, { message: "CPF é obrigatório" })
+    .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, { message: "CPF inválido" }),
+  email: z
+    .string()
+    .min(1, { message: "E-mail é obrigatório" })
+    .email({ message: "Formato do email inválido" }),
+  favColor: z.string().min(1, { message: "Cor preferida é obrigatória" }),
+  notes: z.string().optional(),
 });
 
 type FormInputs = z.infer<typeof formSchema>;
@@ -56,7 +63,7 @@ export const Form = () => {
   };
 
   return (
-    <div className="border-[#ccc] border-1 px-8 py-6 rounded-lg shadow-black/10 shadow-md">
+    <div className="border-[#ccc] border-1 px-8 py-6 rounded-lg shadow-black/10 shadow-md w-auto min-w-auto max-w-auto sm:w-64 sm:min-w-[16rem] sm:max-w-[16rem] md:w-96 md:min-w-[24rem] md:max-w-[24rem] mx-auto">
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4">

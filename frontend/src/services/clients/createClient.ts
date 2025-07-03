@@ -3,7 +3,7 @@ export interface ClientData {
   cpf: string;
   email: string;
   favColor: string;
-  notes: string;
+  notes?: string;
 }
 
 export async function createClient(data: ClientData) {
