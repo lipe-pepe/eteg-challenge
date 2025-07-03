@@ -56,41 +56,45 @@ export const Form = () => {
   };
 
   return (
-    <div>
+    <div className="border-[#ccc] border-1 px-8 py-6 rounded-lg shadow-black/10 shadow-md">
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3>Nome completo</h3>
-        <input {...register("name")} />
-        {errors.name && (
-          <span className="input-error">{errors.name.message}</span>
-        )}
-        <h3>CPF</h3>
-        <input
-          {...register("cpf", {
-            onChange: (e) => {
-              e.target.value = formatCpf(e.target.value);
-            },
-          })}
-        />
-        {errors.cpf && (
-          <span className="input-error">{errors.cpf.message}</span>
-        )}
-        <h3>E-mail</h3>
-        <input {...register("email")} />
-        {errors.email && (
-          <span className="input-error">{errors.email.message}</span>
-        )}
-        <h3>Cor preferida</h3>
-        <input {...register("favColor")} />
-        {errors.favColor && (
-          <span className="input-error">{errors.favColor.message}</span>
-        )}
-        <h3>Observações</h3>
-        <input {...register("notes")} />
-        {errors.notes && (
-          <span className="input-error">{errors.notes.message}</span>
-        )}
-        <Button type="submit">Enviar</Button>
+        <div className="my-4">
+          <h3>Nome completo</h3>
+          <input {...register("name")} />
+          {errors.name && (
+            <span className="input-error">{errors.name.message}</span>
+          )}
+          <h3>CPF</h3>
+          <input
+            {...register("cpf", {
+              onChange: (e) => {
+                e.target.value = formatCpf(e.target.value);
+              },
+            })}
+          />
+          {errors.cpf && (
+            <span className="input-error">{errors.cpf.message}</span>
+          )}
+          <h3>E-mail</h3>
+          <input {...register("email")} />
+          {errors.email && (
+            <span className="input-error">{errors.email.message}</span>
+          )}
+          <h3>Cor preferida</h3>
+          <input {...register("favColor")} />
+          {errors.favColor && (
+            <span className="input-error">{errors.favColor.message}</span>
+          )}
+          <h3>Observações</h3>
+          <input {...register("notes")} />
+          {errors.notes && (
+            <span className="input-error">{errors.notes.message}</span>
+          )}
+        </div>
+        <div className="flex justify-center">
+          <Button type="submit">Enviar</Button>
+        </div>
       </form>
       {modalOpen && (
         <Modal

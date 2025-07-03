@@ -16,7 +16,7 @@ export const Modal = ({ type, message, onClose }: ModalProps) => {
       onClick={onClose}
     >
       <div
-        className={`rounded-xl p-6 shadow-xl mx-6 w-full relative max-w-md text-center border-2 ${borderColor} ${bgColor} ${textColor}`}
+        className={`rounded-xl p-6 shadow-xl w-full relative max-w-md text-center border-2 ${borderColor} ${bgColor} ${textColor}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
