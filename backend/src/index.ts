@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import clientsRoutes from "./routes/clientsRoutes";
 
-const port = 3001;
+const port = 4000;
 
 const app = express();
 
@@ -16,6 +16,6 @@ app.use(express.json());
 
 app.use("/clients", clientsRoutes);
 
-app.listen(3001, () => {
+app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
