@@ -46,6 +46,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 - **TypeScript** — para tipagem estática e segurança no desenvolvimento do backend e frontend.
   
 - **Next.js** — framework React para frontend com renderização híbrida (SSR/SSG).
+  - **Tailwind CSS** — estilização de componentes
   - **React Hook Form** — biblioteca moderna para gerenciamento e validação de formulários React.
   - **Zod** — biblioteca para validação de schemas e tipos de dados no frontend.
   - **React Select** — componente para seleção customizável em formulários React.
